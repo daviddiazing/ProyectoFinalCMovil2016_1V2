@@ -25,13 +25,15 @@ public class AhorcadoActivity extends AppCompatActivity implements View.OnClickL
     EditText editText;
     ImageView imageView;
     Button button;
+	
+	TextView textViewCategoria;
 
     //Aquí declaro las variables globales importantes. Todos los métodos sólo van a modificar a estas
     ArrayList<Integer> visibles = new ArrayList<Integer>();
     String palabraSecreta = "Palabra Secreta";
     // char[] palabraArray = palabraSecreta.toCharArray();
 	char[] palabraArray = null;
-    int oportunidades=4;
+    int oportunidades=5;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,6 +51,9 @@ public class AhorcadoActivity extends AppCompatActivity implements View.OnClickL
 		
 		
 
+		textViewCategoria = (TextView) findViewById(R.id.textViewCategoria);//
+		textViewCategoria.setText("CATEGORIA: "+categoria);
+		
         textView = (TextView) findViewById(R.id.textView);
         textViewOp= (TextView) findViewById(R.id.textViewOp);
         editText= (EditText)findViewById(R.id.editText);
@@ -60,7 +65,7 @@ public class AhorcadoActivity extends AppCompatActivity implements View.OnClickL
         buscarLetra('_');
         buscarLetra(' ');
         textView.setText(muestraPalabra());
-        textViewOp.setText("Tienes 4 oportunidades");
+        textViewOp.setText("Tienes "+6+" oportunidades");
         button.setOnClickListener(this);
 
     }
@@ -161,28 +166,33 @@ public class AhorcadoActivity extends AppCompatActivity implements View.OnClickL
     boolean revisarOportunidades(){
         boolean sigue = true;
         switch (oportunidades){
+            case 5:
+                oportunidades=4;
+                imageView.setImageResource(R.drawable.h2);
+                textViewOp.setText("Te quedan 4 oportunidades");
+                break;
             case 4:
                 oportunidades=3;
-                imageView.setImageResource(R.drawable.h2);
-                textViewOp.setText("Te quedan 3 oportunidades extra");
+                imageView.setImageResource(R.drawable.h3);
+                textViewOp.setText("Te quedan 3 oportunidades");
                 break;
             case 3:
                 oportunidades=2;
-                imageView.setImageResource(R.drawable.h3);
-                textViewOp.setText("Te quedan 2 oportunidades extra");
+                imageView.setImageResource(R.drawable.h4);
+                textViewOp.setText("Te quedan 2 oportunidades");
                 break;
             case 2:
                 oportunidades=1;
-                imageView.setImageResource(R.drawable.h4);
-                textViewOp.setText("Te queda 1 oportunidad extra");
+                imageView.setImageResource(R.drawable.h5);
+                textViewOp.setText("Te queda 1 oportunidad");
                 break;
             case 1:
                 oportunidades=0;
-                imageView.setImageResource(R.drawable.h5);
+                imageView.setImageResource(R.drawable.h6);
                 textViewOp.setText("Es tu última oportunidad");
                 break;
             case 0:
-                imageView.setImageResource(R.drawable.h6);
+                imageView.setImageResource(R.drawable.h7);
                 textViewOp.setText("Ya no te quedan oportunidades");
                 editText.setEnabled(false);
                 button.setEnabled(false);
