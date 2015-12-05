@@ -1,21 +1,17 @@
 package com.ebookfrenzy.proyfinalcmovil2016_1v1;
 
+import android.content.ComponentName;
+import android.content.Context;
 import android.content.Intent;
-
+import android.content.ServiceConnection;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.IBinder;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
-
 import android.widget.ProgressBar;
-import android.os.Handler;
 
-
-import android.os.IBinder;
-import android.content.Context;
-import android.content.Intent;
-import android.content.ComponentName;
-import android.content.ServiceConnection;
 import com.ebookfrenzy.proyfinalcmovil2016_1v1.BoundService.MyLocalBinder;
 
 
@@ -55,6 +51,7 @@ public class SplashScreen extends AppCompatActivity {
                 Intent mainIntent = new Intent().setClass(
                         SplashScreen.this, MainActivity.class);
                 startActivity(mainIntent);
+
 
                 // Close the activity so the user won't able to go back this
                 // activity pressing Back button

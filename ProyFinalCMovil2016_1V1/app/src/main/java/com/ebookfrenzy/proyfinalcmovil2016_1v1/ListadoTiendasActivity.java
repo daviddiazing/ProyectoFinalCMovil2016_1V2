@@ -1,17 +1,16 @@
 package com.ebookfrenzy.proyfinalcmovil2016_1v1;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class ListadoTiendasActivity extends AppCompatActivity {
 
@@ -21,6 +20,16 @@ public class ListadoTiendasActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_listado_tiendas);
+
+        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent irInicio = new Intent(getBaseContext(), MainActivity.class);
+                startActivity(irInicio);
+                finish();
+            }
+        });
 
         //recibe el "DATO"
         Bundle extras = getIntent().getExtras();

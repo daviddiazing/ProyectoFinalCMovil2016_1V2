@@ -1,10 +1,13 @@
 package com.ebookfrenzy.proyfinalcmovil2016_1v1;
 
+import android.content.Intent;
 import android.content.res.Configuration;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
 import android.widget.MediaController;
 import android.widget.TextView;
 import android.widget.VideoView;
@@ -49,6 +52,16 @@ public class Reconocimiento extends AppCompatActivity {
         // Muestra el video
         elVideo.setVideoURI(Uri.parse(ubicacion));
         elVideo.start();
+
+        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent irInicio = new Intent(getBaseContext(), MainActivity.class);
+                startActivity(irInicio);
+                finish();
+            }
+        });
 
     }
 

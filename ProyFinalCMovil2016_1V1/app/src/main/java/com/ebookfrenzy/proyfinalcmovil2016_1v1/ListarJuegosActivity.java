@@ -2,58 +2,71 @@ package com.ebookfrenzy.proyfinalcmovil2016_1v1;
 
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.view.LayoutInflater;
+import android.support.design.widget.FloatingActionButton;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
 
-public class ListarJuegosActivity extends Fragment{
-
+public class ListarJuegosActivity extends AppCompatActivity {
     public ArrayList<DatosJuego> ArrayJuegos = new ArrayList<DatosJuego>();
     private AdapterJuegos adapterJuegos;
-    ListView lstviListaJuegos;
     private String URL = "http://www.serverbpw.com/cm/2016-1/list.php";
 
-    public ListarJuegosActivity () {
-    }
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.activity_listar_juegos, container, false);
-    }
+    ListView lstviListaJuegos;
 
     @Override
-    public void onActivityCreated(Bundle state) {
-        super.onActivityCreated(state);
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_listar_juegos);
         rellenarJuegos();
+
+        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent irInicio = new Intent(getBaseContext(), MainActivity.class);
+                startActivity(irInicio);
+                finish();
+            }
+        });
+
     }
 
     private void inicializaListView(){
-        lstviListaJuegos = (ListView) getView().findViewById(R.id.lstviListaJuegos);
-        adapterJuegos = new AdapterJuegos(getContext(),ArrayJuegos);
+        lstviListaJuegos = (ListView) findViewById(R.id.lstviListaJuegos);
+        adapterJuegos = new AdapterJuegos(this,ArrayJuegos);
         lstviListaJuegos.setAdapter(adapterJuegos);
+        lstviListaJuegos.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent irActivityImagenesJuego = new Intent(ListarJuegosActivity.this,MainActivityImagesJuego.class);
+                irActivityImagenesJuego.putExtra("getIDJuego",ArrayJuegos.get(position).getID());
+                irActivityImagenesJuego.putExtra("getNombreJuego",ArrayJuegos.get(position).getNombre());
+                startActivity(irActivityImagenesJuego);
+            }
+        });
     }
 
     private void rellenarJuegos(){
         if(isOnline()){
-            new DescargarListaJuegos(getContext(),URL).execute();
+            new DescargarListaJuegos(getBaseContext(),URL).execute();
         }else{
-            Toast.makeText(getContext(), "Desconectado", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Desconectado", Toast.LENGTH_SHORT).show();
         }
 
     }
 
     private boolean isOnline() {//Para verificar que estamos conectados
-        ConnectivityManager connect = (ConnectivityManager) getContext().getApplicationContext().getSystemService(Context.CONNECTIVITY_SERVICE);
+        ConnectivityManager connect = (ConnectivityManager) getApplication().getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo netInfo = connect.getActiveNetworkInfo();
         if(netInfo != null && netInfo.isConnected()){
             return true;
@@ -77,8 +90,8 @@ public class ListarJuegosActivity extends Fragment{
             // TODO Auto-generated method stub
             super.onPreExecute();
 
-            pDialog = new ProgressDialog(getContext());
-            pDialog.setMessage("Cargando Información");
+            pDialog = new ProgressDialog(ListarJuegosActivity.this);
+            pDialog.setMessage("Cargando Informacion");
             pDialog.setCancelable(true);
             pDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
             pDialog.show();
@@ -87,7 +100,7 @@ public class ListarJuegosActivity extends Fragment{
 
         @Override
         protected Boolean doInBackground( String... params) {
-            XMLParser parser = new XMLParser(strURL, getContext());
+            XMLParserJuegos parser = new XMLParserJuegos(strURL, getBaseContext());
             ArrayJuegos = parser.parse();
             return true;
         }
@@ -107,4 +120,7 @@ public class ListarJuegosActivity extends Fragment{
             }
         }
     }
+
 }
+
+
