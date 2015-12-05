@@ -1,0 +1,32 @@
+<resources>
+    <string name="app_name">ProyFinalCMovil2016_1V1</string>
+    <string name="menu_principal_title">Menú Principal</string>
+    <string name="escanearCaja_title">Escanear Caja</string>
+    <string name="listarJuegos_title">Listar Juegos</string>
+    <string name="ubicarTienda_title">Ubicar Tienda</string>
+    <string name="miniJuego_title">Mini Juego</string>
+    <string name="action_settings">Settings</string>
+    <string name="string_escanearButton">Escanear caja</string>
+    <string name="string_listadoButton">Listado de juegos</string>
+    <string name="string_ubicaButton">Ubica tu tienda</string>
+    <string name="string_minijuegoButton">Minijuego</string>
+    <string name="otras_opciones_title">Otras Opciones</string>
+    <string name="opcion_ayuda_title">Ayuda</string>
+    <string name="opcion_equipo_title">Equipo o algo ms</string>
+    <string name="todas_las_tiendas_title">Localizando tiendas...</string>
+    <string name="Listado_tiendas_title">Listado de tiendas</string>
+    <string name="title_activity_maps">Map</string>
+    <string name="title_activity_ahorcado">Ahorcado</string>
+    <string name="title_activity_BuscarPalabrasAhorcado">Buscando palabra...</string>
+
+    <string name="titulo0">Twister Rave</string>
+    <string name="titulo1">Adivina Quien?</string>
+    <string name="titulo2">Angry birds GO</string>
+    <string name="titulo3">Atrapa Ratones</string>
+    <string name="titulo4">Connect 4 Tiro Extremo</string>
+    <string name="titulo5">Monopoly Banco Electronico</string>
+    <string name="titulo6">Monopoly Imperio</string>
+    <string name="titulo7">Operando</string>
+    <string name="titulo8">Simon Swipe</string>
+
+</resources>
