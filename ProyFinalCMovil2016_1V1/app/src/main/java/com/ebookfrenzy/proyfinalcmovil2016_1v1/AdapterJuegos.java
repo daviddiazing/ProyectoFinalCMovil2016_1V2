@@ -4,8 +4,10 @@ import android.content.Context;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
@@ -33,14 +35,14 @@ public class AdapterJuegos extends ArrayAdapter<Object> {
         TextView tvNombre;
         TextView tvID;
         TextView tvDescripcion;
-        ImageButton ibtnJuego;
+        ImageView ibtnJuego;
 
         public static PlaceHolder generate (View convertView){
             PlaceHolder placeHolder = new PlaceHolder();
             placeHolder.tvNombre = (TextView) convertView.findViewById(R.id.tvNombre);
             placeHolder.tvID = (TextView) convertView.findViewById(R.id.tvID);
             placeHolder.tvDescripcion = (TextView) convertView.findViewById(R.id.tvDescripcion);
-            placeHolder.ibtnJuego = (ImageButton) convertView.findViewById(R.id.ibtnJuego);
+            placeHolder.ibtnJuego = (ImageView) convertView.findViewById(R.id.ibtnJuego);
             return placeHolder;
         }
     }
@@ -57,7 +59,8 @@ public class AdapterJuegos extends ArrayAdapter<Object> {
         placeHolder.tvNombre.setText(juegos.get(position).getNombre());
         placeHolder.tvID.setText(juegos.get(position).getID());
         placeHolder.tvDescripcion.setText(juegos.get(position).getDescripcion());
-        placeHolder.ibtnJuego.setImageBitmap(juegos.get(position).getImgJuego());
+        //placeHolder.ibtnJuego.setImageBitmap(juegos.get(position).getImgJuego());
+        Picasso.with(context).load(juegos.get(position).getImagen()).placeholder(R.drawable.backgroun_principal).error(R.mipmap.ic_launcher).into(placeHolder.ibtnJuego);
         return convertView;
     }
 

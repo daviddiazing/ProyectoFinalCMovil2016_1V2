@@ -1,21 +1,17 @@
 package com.ebookfrenzy.proyfinalcmovil2016_1v1;
 
-import android.support.v7.app.AppCompatActivity;
+import android.content.Intent;
 import android.os.Bundle;
-
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.List;
 
 
 public class AhorcadoActivity extends AppCompatActivity implements View.OnClickListener{
@@ -44,6 +40,16 @@ public class AhorcadoActivity extends AppCompatActivity implements View.OnClickL
 		if (extras == null) {
 			return;
 		}
+
+        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent irInicio = new Intent(getBaseContext(), MainActivity.class);
+                startActivity(irInicio);
+                finish();
+            }
+        });
 		
 		String categoria = extras.getString("CATEGORIA");
 		palabraSecreta = extras.getString("PALABRA");
@@ -51,8 +57,8 @@ public class AhorcadoActivity extends AppCompatActivity implements View.OnClickL
 		
 		
 
-		textViewCategoria = (TextView) findViewById(R.id.textViewCategoria);//
-		textViewCategoria.setText("CATEGORIA: "+categoria);
+		//textViewCategoria = (TextView) findViewById(R.id.textViewCategoria);//
+		//textViewCategoria.setText("CATEGORIA: "+categoria);
 		
         textView = (TextView) findViewById(R.id.textView);
         textViewOp= (TextView) findViewById(R.id.textViewOp);
