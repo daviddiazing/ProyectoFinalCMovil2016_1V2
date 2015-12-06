@@ -23,13 +23,14 @@
         android:id="@+id/fab"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:fabSize="normal"
-        app:borderWidth="0dp"
-        android:layout_gravity="right|bottom"
         android:src="@drawable/ic_nav_menu"
+        app:fabSize="mini"
         android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_toRightOf="@+id/TituloVideo"
+        android:layout_toEndOf="@+id/TituloVideo"
+        android:layout_marginLeft="42dp"
+        android:layout_marginStart="42dp" />
+
 
     <TextView
         android:layout_width="wrap_content"

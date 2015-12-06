@@ -3,19 +3,19 @@
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/menu_escanear_caja"
-            android:icon="@mipmap/ic_launcher"
+            android:icon="@drawable/ic_escanear"
             android:title="@string/escanearCaja_title"/>
         <item
             android:id="@+id/menu_listar_juegos"
-            android:icon="@mipmap/ic_launcher"
+            android:icon="@drawable/ic_listar"
             android:title="@string/listarJuegos_title"/>
         <item
             android:id="@+id/menu_ubicar_tienda"
-            android:icon="@mipmap/ic_launcher"
+            android:icon="@drawable/ic_tienda"
             android:title="@string/ubicarTienda_title"/>
         <item
             android:id="@+id/menu_mini_juego"
-            android:icon="@mipmap/ic_launcher"
+            android:icon="@drawable/ic_juego"
             android:title="@string/miniJuego_title"/>
     </group>
 

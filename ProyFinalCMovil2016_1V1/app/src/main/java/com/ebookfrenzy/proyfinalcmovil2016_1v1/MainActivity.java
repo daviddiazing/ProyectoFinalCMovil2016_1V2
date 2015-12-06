@@ -58,23 +58,23 @@ public class MainActivity extends AppCompatActivity{
                             case R.id.menu_escanear_caja:
                                 Intent irSimpleClientTrackingActivity = new Intent(getBaseContext(), SimpleClientTrackingActivity.class);
                                 startActivity(irSimpleClientTrackingActivity);
-                                finish();
+                                //finish();
                                 break;
                             case R.id.menu_listar_juegos:
                                 Intent irListarJuegos = new Intent(getBaseContext(), ListarJuegosActivity.class);
                                 startActivity(irListarJuegos);
-                                finish();
+                                //finish();
                                 break;
                             case R.id.menu_ubicar_tienda:
                                 Intent irTodasLasTiendasActivity = new Intent(getBaseContext(), TodasLasTiendasActivity.class);
                                 startActivity(irTodasLasTiendasActivity);
-                                finish();
+                                //finish();
                                 miTienda = true;
                                 break;
                             case R.id.menu_mini_juego:
                                 Intent irBuscarPalabraActivity = new Intent(getBaseContext(), BuscarPalabraActivity.class);
                                 startActivity(irBuscarPalabraActivity);
-                                finish();
+                                //finish();
                                 break;
                         }
                         drawerLayout.closeDrawers();
