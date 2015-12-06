@@ -13,8 +13,14 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 
+import android.media.MediaPlayer;
+
+
 
 public class AhorcadoActivity extends AppCompatActivity implements View.OnClickListener{
+
+	static MediaPlayer mediaPlayer = null;
+    static boolean pause=false;
 
     TextView textView;
     TextView textViewOp;
@@ -23,7 +29,9 @@ public class AhorcadoActivity extends AppCompatActivity implements View.OnClickL
     Button button;
 	
 	TextView textViewCategoria;
-
+	String cadenaOportunidades=null;
+		
+	
     //Aquí declaro las variables globales importantes. Todos los métodos sólo van a modificar a estas
     ArrayList<Integer> visibles = new ArrayList<Integer>();
     String palabraSecreta = "Palabra Secreta";
@@ -54,11 +62,11 @@ public class AhorcadoActivity extends AppCompatActivity implements View.OnClickL
 		String categoria = extras.getString("CATEGORIA");
 		palabraSecreta = extras.getString("PALABRA");
 		palabraArray = palabraSecreta.toCharArray();
-		
+				
 		
 
-		//textViewCategoria = (TextView) findViewById(R.id.textViewCategoria);//
-		//textViewCategoria.setText("CATEGORIA: "+categoria);
+		textViewCategoria = (TextView) findViewById(R.id.textViewCategoria);//
+		textViewCategoria.setText("CATEGORIA: "+categoria);
 		
         textView = (TextView) findViewById(R.id.textView);
         textViewOp= (TextView) findViewById(R.id.textViewOp);
@@ -73,6 +81,20 @@ public class AhorcadoActivity extends AppCompatActivity implements View.OnClickL
         textView.setText(muestraPalabra());
         textViewOp.setText("Tienes "+6+" oportunidades");
         button.setOnClickListener(this);
+		
+		//musica
+		if(mediaPlayer==null){
+            mediaPlayer = MediaPlayer.create(this, R.raw.cancion);
+            mediaPlayer.setLooping(true);
+            mediaPlayer.setVolume(10, 10);
+        }
+        if(!mediaPlayer.isPlaying())
+        {
+            if(!pause){
+                mediaPlayer.start();
+            }
+        }
+		
 
     }
 
@@ -126,6 +148,20 @@ public class AhorcadoActivity extends AppCompatActivity implements View.OnClickL
                 }
                 break;
         }
+		
+		//musica
+		switch (v.getId()){
+            case R.raw.cancion:
+                if(mediaPlayer.isPlaying()){
+                    pause=true;
+                    mediaPlayer.pause();
+                }else{
+                    pause=false;
+                    mediaPlayer.start();
+                }
+                break;
+        }
+		
     }
 
 
@@ -175,31 +211,37 @@ public class AhorcadoActivity extends AppCompatActivity implements View.OnClickL
             case 5:
                 oportunidades=4;
                 imageView.setImageResource(R.drawable.h2);
-                textViewOp.setText("Te quedan 4 oportunidades");
+                textViewOp.setText("Te quedan 5 oportunidades");
+				cadenaOportunidades="Te quedan 5 oportunidades";
                 break;
             case 4:
                 oportunidades=3;
                 imageView.setImageResource(R.drawable.h3);
-                textViewOp.setText("Te quedan 3 oportunidades");
+                textViewOp.setText("Te quedan 4 oportunidades");
+				cadenaOportunidades="Te quedan 4 oportunidades";
                 break;
             case 3:
                 oportunidades=2;
                 imageView.setImageResource(R.drawable.h4);
-                textViewOp.setText("Te quedan 2 oportunidades");
+                textViewOp.setText("Te quedan 3 oportunidades");
+				cadenaOportunidades="Te quedan 3 oportunidades";
                 break;
             case 2:
                 oportunidades=1;
                 imageView.setImageResource(R.drawable.h5);
-                textViewOp.setText("Te queda 1 oportunidad");
+                textViewOp.setText("Te queda 2 oportunidades");
+				cadenaOportunidades="Te queda 2 oportunidades";
                 break;
             case 1:
                 oportunidades=0;
                 imageView.setImageResource(R.drawable.h6);
-                textViewOp.setText("Es tu última oportunidad");
+                textViewOp.setText("Te queda 1 oportunidad");
+				cadenaOportunidades="Te queda 1 oportunidad";
                 break;
             case 0:
                 imageView.setImageResource(R.drawable.h7);
-                textViewOp.setText("Ya no te quedan oportunidades");
+                textViewOp.setText("¡Perdiste!");
+				cadenaOportunidades="¡Perdiste!";
                 editText.setEnabled(false);
                 button.setEnabled(false);
                 sigue=false;
@@ -208,7 +250,47 @@ public class AhorcadoActivity extends AppCompatActivity implements View.OnClickL
         return sigue;
     }
 
+	@Override
+    protected void onDestroy() {
+        super.onDestroy();
+        mediaPlayer.pause();
+    }
+	
+	
+	
+	@Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        
+		outState.putInt("oportunidades", oportunidades);
+		outState.putString("cadenaOportunidades", cadenaOportunidades);
+		
+		CharSequence cadenaEn_textView = textView.getText();		
+		outState.putCharSequence("cadenaEn_textView", cadenaEn_textView);
+		
+		outState.putCharArray("palabraArray", palabraArray);
+		
+		outState.putIntegerArrayList("visibles", visibles);
+		
+					
 
+    }
+
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+        
+		this.oportunidades = savedInstanceState.getInt("oportunidades");
+		this.cadenaOportunidades = savedInstanceState.getString("cadenaOportunidades");
+		textViewOp.setText(cadenaOportunidades);
+		
+		CharSequence cadenaEn_textView = savedInstanceState.getCharSequence("cadenaEn_textView");
+		textView.setText(cadenaEn_textView);
+		
+		palabraArray = savedInstanceState.getCharArray("palabraArray");
+				
+		visibles = savedInstanceState.getIntegerArrayList("visibles");
+    }
 
 
 }
