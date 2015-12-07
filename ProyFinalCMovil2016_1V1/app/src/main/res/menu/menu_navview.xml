@@ -19,18 +19,4 @@
             android:title="@string/miniJuego_title"/>
     </group>
 
-    <item
-        android:id="@+id/navigation_extras"
-        android:title="@string/otras_opciones_title">
-        <menu>
-            <item
-                android:id="@+id/menu_ayuda"
-                android:icon="@mipmap/ic_launcher"
-                android:title="@string/opcion_ayuda_title"/>
-            <item
-                android:id="@+id/menu_equipo"
-                android:icon="@mipmap/ic_launcher"
-                android:title="@string/opcion_equipo_title"/>
-        </menu>
-    </item>
 </menu>

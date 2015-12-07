@@ -31,6 +31,8 @@ public class SplashScreen extends AppCompatActivity {
          setContentView(R.layout.splash_screen);
         mProgress = (ProgressBar) findViewById(R.id.progressBar);
 
+
+
         Intent intent = new Intent(this, BoundService.class);//levantar servicio gps
         bindService(intent, myConnection, Context.BIND_AUTO_CREATE);//levantar servicio gps
 
