@@ -22,22 +22,22 @@ public class AhorcadoActivity extends AppCompatActivity implements View.OnClickL
 	static MediaPlayer mediaPlayer = null;
     static boolean pause=false;
 
-    TextView textView;
-    TextView textViewOp;
-    EditText editText;
-    ImageView imageView;
-    Button button;
+    static TextView textView;
+    static TextView textViewOp;
+    static EditText editText;
+    static ImageView imageView;
+    static Button button;
 	
-	TextView textViewCategoria;
-	String cadenaOportunidades=null;
+	static TextView textViewCategoria;
+	static String cadenaOportunidades=null;
 		
 	
     //Aquí declaro las variables globales importantes. Todos los métodos sólo van a modificar a estas
-    ArrayList<Integer> visibles = new ArrayList<Integer>();
-    String palabraSecreta = "Palabra Secreta";
+    static ArrayList<Integer> visibles = new ArrayList<Integer>();
+    static String palabraSecreta = "Palabra Secreta";
     // char[] palabraArray = palabraSecreta.toCharArray();
-	char[] palabraArray = null;
-    int oportunidades=5;
+	static char[] palabraArray = null;
+    static int oportunidades=5;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,6 +55,7 @@ public class AhorcadoActivity extends AppCompatActivity implements View.OnClickL
             public void onClick(View v) {
                 Intent irInicio = new Intent(getBaseContext(), MainActivity.class);
                 startActivity(irInicio);
+				reiniciarVariables();
                 finish();
             }
         });
@@ -72,16 +73,15 @@ public class AhorcadoActivity extends AppCompatActivity implements View.OnClickL
         textViewOp= (TextView) findViewById(R.id.textViewOp);
         editText= (EditText)findViewById(R.id.editText);
         imageView=(ImageView)findViewById(R.id.imageView);
+		button=(Button)findViewById(R.id.button);
+
 
         //Inicialización de cómo se verá al principio la pantalla
-        imageView.setImageResource(R.drawable.h1);
-        button=(Button)findViewById(R.id.button);
-        buscarLetra('_');
-        buscarLetra(' ');
+		revisarVariablesGlobales();
         textView.setText(muestraPalabra());
-        textViewOp.setText("Tienes "+6+" oportunidades");
         button.setOnClickListener(this);
 		
+        		
 		//musica
 		if(mediaPlayer==null){
             mediaPlayer = MediaPlayer.create(this, R.raw.cancion);
@@ -97,6 +97,16 @@ public class AhorcadoActivity extends AppCompatActivity implements View.OnClickL
 		
 
     }
+	
+	void reiniciarVariables()
+	{
+		oportunidades=5;	
+		cadenaOportunidades=null;
+		visibles = new ArrayList<Integer>();
+		palabraSecreta = null;    
+		palabraArray = null;		
+		pause=false;				
+	}
 
     @Override
     public void onClick(View v) {
@@ -119,13 +129,16 @@ public class AhorcadoActivity extends AppCompatActivity implements View.OnClickL
                         editText.setText("");
                         //Que ya ganó, es decir ya no hay más letras que descubrir
                         if(revisaGanador()){
+							revisarVariablesGlobales();
                             Toast.makeText(this, "GANASTE!!!!", Toast.LENGTH_SHORT).show();
                             textViewOp.setText("Ganaste ;)");
+							cadenaOportunidades="Ganaste ;)";
                             imageView.setImageResource(R.drawable.win);
                             editText.setEnabled(false);
                             button.setEnabled(false);
                         }else{
                             //O sino sigue jugando
+							revisarVariablesGlobales();
                             Toast.makeText(this, "Bien!", Toast.LENGTH_SHORT).show();
                         }
 
@@ -134,11 +147,13 @@ public class AhorcadoActivity extends AppCompatActivity implements View.OnClickL
                         textView.setText(muestraPalabra());
                         //Si aun tiene oportunidades sigue jugando
                         if(revisarOportunidades()){
+							revisarVariablesGlobales();
                             Toast.makeText(this, "Ups! Sigue jugando", Toast.LENGTH_SHORT).show();
                             editText.setText("");
 
                         }else{
                             //Si ya no le quedan oportundades pierde y ya no puede haacer más
+							revisarVariablesGlobales();
                             Toast.makeText(this, "GAME OVER :c Loser", Toast.LENGTH_SHORT).show();
 
                         }
@@ -210,50 +225,90 @@ public class AhorcadoActivity extends AppCompatActivity implements View.OnClickL
         switch (oportunidades){
             case 5:
                 oportunidades=4;
-                imageView.setImageResource(R.drawable.h2);
-                textViewOp.setText("Te quedan 5 oportunidades");
-				cadenaOportunidades="Te quedan 5 oportunidades";
                 break;
             case 4:
                 oportunidades=3;
-                imageView.setImageResource(R.drawable.h3);
-                textViewOp.setText("Te quedan 4 oportunidades");
-				cadenaOportunidades="Te quedan 4 oportunidades";
                 break;
             case 3:
                 oportunidades=2;
-                imageView.setImageResource(R.drawable.h4);
-                textViewOp.setText("Te quedan 3 oportunidades");
-				cadenaOportunidades="Te quedan 3 oportunidades";
                 break;
             case 2:
                 oportunidades=1;
-                imageView.setImageResource(R.drawable.h5);
-                textViewOp.setText("Te queda 2 oportunidades");
-				cadenaOportunidades="Te queda 2 oportunidades";
                 break;
             case 1:
                 oportunidades=0;
-                imageView.setImageResource(R.drawable.h6);
-                textViewOp.setText("Te queda 1 oportunidad");
-				cadenaOportunidades="Te queda 1 oportunidad";
                 break;
             case 0:
-                imageView.setImageResource(R.drawable.h7);
-                textViewOp.setText("¡Perdiste!");
-				cadenaOportunidades="¡Perdiste!";
-                editText.setEnabled(false);
-                button.setEnabled(false);
+                oportunidades=-1;
                 sigue=false;
                 break;
         }
         return sigue;
     }
 
+    //Segun las oportunidades que s etengan revisa las variables globales para cambiarlas
+    void revisarVariablesGlobales(){
+        switch (oportunidades){
+            case 5:
+                imageView.setImageResource(R.drawable.h1);
+                textViewOp.setText("Tienes 5 oportunidades ");
+				cadenaOportunidades="Tienes 5 oportunidades ";
+                buscarLetra('_');
+                buscarLetra(' ');
+                break;
+            case 4:
+                imageView.setImageResource(R.drawable.h2);
+                textViewOp.setText("Te quedan 4 oportunidades ");
+				cadenaOportunidades="Te quedan 4 oportunidades ";
+                break;
+            case 3:
+                imageView.setImageResource(R.drawable.h3);
+                textViewOp.setText("Te quedan 3 oportunidades ");
+				cadenaOportunidades="Te quedan 3 oportunidades ";
+                break;
+            case 2:
+                imageView.setImageResource(R.drawable.h4);
+                textViewOp.setText("Te queda 2 oportunidades ");
+				cadenaOportunidades="Te queda 2 oportunidades ";
+                break;
+            case 1:
+                imageView.setImageResource(R.drawable.h5);
+                textViewOp.setText("Te queda 1 oportunidad");
+				cadenaOportunidades="Te queda 1 oportunidad";
+                break;
+            case 0:
+                imageView.setImageResource(R.drawable.h6);
+                textViewOp.setText("Es tu última oportunidad");
+				cadenaOportunidades="Es tu última oportunidad";
+                break;
+            case -1:
+                imageView.setImageResource(R.drawable.h7);
+                textViewOp.setText("¡Perdiste!");
+				cadenaOportunidades="¡Perdiste!";
+                editText.setEnabled(false);
+                button.setEnabled(false);
+                break;
+        }
+    }
+
 	@Override
     protected void onDestroy() {
         super.onDestroy();
         mediaPlayer.pause();
+    }
+	
+	@Override
+    protected void onPause(){
+        super.onPause();
+        pause=true;
+        mediaPlayer.pause();
+    }
+
+    @Override
+    protected void onResume(){
+        super.onResume();
+        pause=false;
+        mediaPlayer.start();
     }
 	
 	
