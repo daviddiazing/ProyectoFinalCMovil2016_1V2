@@ -128,7 +128,7 @@ public class BuscarPalabraActivity extends AppCompatActivity {
                     
 					String categoria = ArrayAhorcado.get(0).getCategoria();
 					String palabra = ArrayAhorcado.get(0).getPalabra();
-					Toast.makeText(context,"categoria: "+categoria+", palabra: "+palabra,Toast.LENGTH_SHORT).show();
+					// Toast.makeText(context,"categoria: "+categoria+", palabra: "+palabra,Toast.LENGTH_SHORT).show();
                     // // // // // TextView myTextView =
                             // // // // // (TextView)findViewById(R.id.textView);
                     // // // // // myTextView.setText(nombre);
